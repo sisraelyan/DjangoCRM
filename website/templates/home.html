@@ -1,11 +1,46 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    
-  <div class="col-md-6 offset-md-3">
 
   {% if user.is_authenticated %}
-    <h1>Hello!</h1>
+    
+    <h1>Records...</h1>
+
+    {% if records %}
+      <table class="table table-striped table-bordered">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Name</th>
+            <th scope="col">Email</th>
+            <th scope="col">Phone</th>
+            <th scope="col">Address</th>
+            <th scope="col">City</th>
+            <th scope="col">State</th>
+            <th scope="col">Zip</th>
+            <th scope="col">Created at</th>
+          </tr>
+
+        </thead>
+        <tbody>
+          {% for record in records %}
+            <tr>
+              <th><a href="{% url 'record' record.id %}">{{ record.id }}</a></th>
+              <th>{{ record.first_name }} {{ record.last_name }}</th>
+              <th>{{ record.email }}</th>
+              <th>{{ record.phone }}</th>
+              <th>{{ record.address }}</th>
+              <th>{{ record.city }}</th>
+              <th>{{ record.state }}</th>
+              <th>{{ record.zip_code }}</th>
+              <th>{{ record.created_at }}</th>
+            </tr>
+          
+          {% endfor %}
+        </tbody>
+      </table>
+    {% endif %}
+
   {% else %}
     <h1>Login</h1>
 
@@ -22,7 +57,6 @@
       <button type="submit" class="btn btn-secondary">Login</button>
     </form>
 
-  </div>
 
   {% endif %}
 
